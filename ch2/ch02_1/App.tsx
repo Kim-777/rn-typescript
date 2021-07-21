@@ -1,16 +1,21 @@
 import React from 'react';
-import {SafeAreaView, Text} from 'react-native';
+import { SafeAreaView, ScrollView } from 'react-native';
 import * as D from './src/data';
-import ClassComponent from './src/screeens/ClassComponent';
-import ArrowComponent from './src/screeens/ArrowComponent';
+import Person from './src/screeens/Person';
 
-const person = D.createRandomPerson();
+
+
+const people = D.makeArray(100).map(D.createRandomPerson)
 
 export default function App() {
+  
+  const children = people.map((person) => (
+    <Person key={person.id} person={person} />
+  ))
+  
   return (
     <SafeAreaView>
-      <ClassComponent />
-      <ArrowComponent />
+      <ScrollView>{children}</ScrollView>
     </SafeAreaView>
   );
 }
