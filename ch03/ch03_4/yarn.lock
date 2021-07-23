@@ -4831,6 +4831,16 @@
   dependencies:
     "minimist" "^1.2.5"
 
+"moment-with-locales-es6@^1.0.1":
+  "integrity" "sha512-aKHuk7hHGVGk1X86rhu4aVwSEpBEwL3Lo5BEvZnqGueZeVK9pfpTrlLT3qN4A64vMkiKkxWpwQCcyg2YpoZGaQ=="
+  "resolved" "https://registry.npmjs.org/moment-with-locales-es6/-/moment-with-locales-es6-1.0.1.tgz"
+  "version" "1.0.1"
+
+"moment@^2.0.0", "moment@^2.29.1":
+  "integrity" "sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ=="
+  "resolved" "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz"
+  "version" "2.29.1"
+
 "ms@2.0.0":
   "integrity" "sha1-VgiurfwAvmwpAd9fmGF4jeDVl8g="
   "resolved" "https://registry.npmjs.org/ms/-/ms-2.0.0.tgz"
