@@ -1,31 +1,29 @@
-import React, {Fragment} from 'react';
-import {StyleSheet, SafeAreaView, View} from 'react-native';
+import React from 'react';
+import {StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
 import {Colors} from 'react-native-paper';
-import TopBar from './src/screens/TopBar';
-import Content from './src/screens/Content';
-import BottomBar from './src/screens/BottomBar';
+import Person from './src/copy/Person';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import * as D from './src/data';
+
+
+const people: D.IPerson[] = D.makeArray(10).map(D.createRandomPerson);
 
 function App() {
   return (
-    <>
-      <SafeAreaView style={[styles.flex]}>
-        <TopBar />
-        <Content />
-        <BottomBar />
-      </SafeAreaView>
-      <View style={[styles.absoluteView]}>
-        <Icon name="feather" size={50} color="white" />
-      </View>
-    </>
+    <SafeAreaView style={styles.flex}>
+        <FlatList 
+          data={people}
+          renderItem={({item}) => <Person person={item} />}
+          keyExtractor={(item, index) => item.id}
+          ItemSeparatorComponent={() => <View style={styles.itemSeparator} />}
+        />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  flex: {flex: 1, backgroundColor: Colors.lightBlue100},
-  absoluteView: {
-    backgroundColor: Colors.purple900,
-  },
+  flex: {flex: 1},
+  itemSeparator: { borderWidth: 1, borderColor: Colors.grey300}
 });
 
 export default App;
