@@ -11,7 +11,7 @@ export type AvatarProps = TouchableViewProps & {
   imageStyle?: StyleProp<ImageStyle>
 }
 
-const Avatar: FC<AvatarProps> = ({uri, size, imageStyle, ...touchableViewProps}) => {
+export const Avatar: FC<AvatarProps> = ({uri, size, imageStyle, ...touchableViewProps}) => {
   return (
     <TouchableView {...touchableViewProps}>
       <Image 
@@ -21,4 +21,3 @@ const Avatar: FC<AvatarProps> = ({uri, size, imageStyle, ...touchableViewProps})
   )
 }
 
-export default Avatar

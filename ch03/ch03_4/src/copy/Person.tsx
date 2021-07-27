@@ -22,6 +22,19 @@ const countIconPressed = (name: string) => () => Alert.alert(`${name} pressed.`)
 const Person: FC<PersonProps> = ({person}) => {
   return (
     <View style={[styles.view]}>
+      <View style={[styles.leftView]}>
+        <Avatar imageStyle={[styles.avatar]} uri={person.avatar} size={50} onPress={avatarPressed} />
+      </View>
+      <View style={[styles.rightView]}>
+        <Text style={[styles.name]}>{person.name}</Text>
+        <Text style={[styles.email]}>{person.email}</Text>
+        <View style={[styles.dateView]}>
+          <Text style={[styles.text]}>
+            {moment(person.createdDate).startOf('day').fromNow()}
+          </Text>
+          <Icon name="trash-can-outline" size={26} color={Colors.lightBlue500} onPress={deletePressed} />
+        </View>
+      </View>
     </View>
   );
 };
