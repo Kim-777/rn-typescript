@@ -8,7 +8,7 @@ const Signup = () => {
   return (
     <>
       <Title title="회원가입" />
-      <View style={styles.signupWrapper}>
+      <ScrollView style={styles.signupWrapper} contentContainerStyle={styles.signupContent}>
         <Text style={styles.subText}>정보를 등록하고 리그에 참여하세요</Text>
         <View style={styles.info}>
           <AuthInput title="별명" placeholder="최대 10자 이내" topRadius/>
@@ -19,7 +19,7 @@ const Signup = () => {
           <AuthInput title="비밀번호" placeholder="4~10자 영문 숫자 조합" secureTextEntry topRadius/>
           <AuthInput title="휴대폰번호" placeholder="비밀번호를 다시 입력해주세요." secureTextEntry bottomRadius/>
         </View>
-      </View>
+      </ScrollView>
       <StateCheckBottom text="회원가입 완료" />
     </>
   );
@@ -27,7 +27,11 @@ const Signup = () => {
 
 const styles = StyleSheet.create({
   signupWrapper: {
+    // minHeight: '100%',
+  },
+  signupContent: {
     flex: 1,
+    minHeight: '100%',
     paddingHorizontal: 25,
   },
   subText: {

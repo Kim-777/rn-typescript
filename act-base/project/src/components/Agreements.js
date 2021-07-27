@@ -1,25 +1,28 @@
-import React, {useState} from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
-
-const Agreements = ({essential, text, checked, onPress}) => {
-
+const Agreements = ({text, checked, onPress}) => {
   return (
-    <View style={[styles.agreementsView]}>
-      <TouchableOpacity style={[styles.agreementsCheckBox, {backgroundColor: checked ? 'rgb(236, 85, 121)' : 'white'}]}>
-        <Icon 
-          name="check" 
-          size={15} 
-          color={checked ? 'white' : `gray`} 
+    <TouchableOpacity style={[styles.agreementsView]} onPress={onPress}>
+      <View
+        style={[
+          styles.agreementsCheckBox,
+          {backgroundColor: checked ? 'rgb(236, 85, 121)' : 'rgb(221, 221, 221)'},
+        ]}>
+        <Icon
+          name="check"
+          size={15}
+          color={'white'}
           onPress={onPress}
         />
-        {/* <Image source={require('../assets/images/white-check.png')}/> */}
-      </TouchableOpacity>
-      <Text style={[styles.agreementsText]}>{text}</Text>
-    </View>
-  )
-}
+      </View>
+      <Text style={[styles.agreementsText, checked && styles.checkedText]}>
+        {text}
+      </Text>
+    </TouchableOpacity>
+  );
+};
 
 const styles = StyleSheet.create({
   agreementsView: {
@@ -33,12 +36,15 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginRight: 6,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   agreementsText: {
     color: '#999999',
-    fontSize: 15
-  }
-})
+    fontSize: 15,
+  },
+  checkedText: {
+    color: 'black',
+  },
+});
 
-export default Agreements
+export default Agreements;

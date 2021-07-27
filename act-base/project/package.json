@@ -10,9 +10,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@react-native-community/checkbox": "^0.5.8",
     "react": "17.0.1",
     "react-native": "0.64.2",
+    "react-native-paper": "^4.9.2",
     "react-native-vector-icons": "^8.1.0"
   },
   "devDependencies": {

@@ -62,7 +62,7 @@ const Login = () => {
           placeholder="비밀번호를 입력하세요."
           onChangeText={handlePasswordChange}
         />
-        <Agreements essential text="로그인 유지" checked={autoLogin} onPress={toggleAutoLogin}/>
+        <Agreements text="로그인 유지" checked={autoLogin} onPress={toggleAutoLogin}/>
         <FlatButton text={'로그인'} onPress={onPress} />
         <View style={[styles.optionView]}>
           <TouchableOpacity>
