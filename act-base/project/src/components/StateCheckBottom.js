@@ -2,15 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import color from '../common/color'
 
-const StateCheckBottom = ({text, disabled, finished, onPress}) => {
+const StateCheckBottom = ({text, available, onPress}) => {
   return (
     <TouchableOpacity 
-      style={[styles.wrapper, finished && styles.finished]}
-      disabled={disabled}
+      style={[styles.wrapper, available && styles.available]}
+      disabled={!available}
       onPress={onPress}
     >
       <Text style={styles.text}>{text}</Text>
-      <View style={[styles.bar, finished && {backgroundColor: color.white}]}></View>
+      <View style={[styles.bar, available && {backgroundColor: color.white}]}></View>
     </TouchableOpacity>
   )
 }
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
     letterSpacing: -0.8,
     color: color.white,
   }, 
-  finished: {
+  available: {
     backgroundColor: color.warmPink,
   }
 })

@@ -5,14 +5,21 @@ import Signup from './src/screens/Signup';
 import Agree from './src/screens/Agree';
 import FindId from './src/screens/FindId';
 import LoginSuccess from './src/screens/LoginSuccess';
+import { decode, encode } from 'base-64';
+
+
 
 const App = () => {
+
+  if(!global.btoa) { global.btoa = encode}
+  if(!global.atob) { global.atob = decode}
+
   return (
     <SafeAreaView style={styles.sectionContainer}>
       {/* <Login /> */}
       {/* <Agree /> */}
-      {/* <Signup /> */}
-      <LoginSuccess />
+      <Signup />
+      {/* <LoginSuccess /> */}
       {/* <FindId /> */}
     </SafeAreaView>
   );

@@ -13,6 +13,9 @@ import Agreements from '../components/Agreements';
 import Divider from '../components/Divider';
 import AuthInput from '../components/AuthInput';
 import color from '../common/color';
+import { login } from '../api';
+
+
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -27,8 +30,22 @@ const Login = () => {
     setPassword(password);
   };
 
-  const onPress = () => {
-    Alert.alert('Alert', '안녕하세용~ 로그인 창 입니다.');
+  const onPress = async () => {
+    
+    try {
+      console.log('pressed!')
+      const formData = new FormData();
+      formData.append('username', id);
+      formData.append('password', password)
+      formData.append('grant_type', "password");
+  
+      const result = await login(formData);
+      console.log(result.data);
+      Alert.alert('로그인', '로그인에 성공 했습니다.')
+
+    } catch (e) {
+      console.log('error 발생', e);
+    }
   };
 
   const toggleAutoLogin = () => {

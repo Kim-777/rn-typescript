@@ -18,7 +18,7 @@ const AuthInput = ({
   topRadius,
   bottomRadius,
   shouldChecked,
-  isFinished,
+  isChecked,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -56,9 +56,9 @@ const AuthInput = ({
         {shouldChecked &&
           (value ? (
             <Icon
-              name={`${isFinished ? 'check' : 'close'}`}
+              name={`${isChecked ? 'check' : 'close'}`}
               size={15}
-              color={`${isFinished ? color.forest : color.grapefruit}`}
+              color={`${isChecked ? color.forest : color.grapefruit}`}
               style={{marginHorizontal: 5}}
             />
           ) : null)}

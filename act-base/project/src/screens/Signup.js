@@ -6,68 +6,93 @@ import AuthInput from '../components/AuthInput';
 import {signup} from '../api';
 import color from '../common/color';
 
-const defaultRule = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{4,10}$/;
+const idRule = /^[A-Za-z0-9+]{4,10}$/; 
 const phoneRule = /^01([0|1|6|7|8|9]?)-?([0-9]{3,4})-?([0-9]{4})$/;
+const passwordRule = /^(?=.*[a-zA-Z])(?=.*[0-9])[a-zA-Z0-9]{4,10}$/;
 
 const Signup = () => {
 
-  const [disabled, setDisabled] = useState(true);
+  const [available, setAvailable] = useState(false);
 
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
   const [nickname, setNickname] = useState('');
   const [phone, setPhone] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [isAllChecked, setIsAllChecked] = useState({
+    nicknameChecked: false,
+    userIdChecked: false,
+    phoneChecked: false,
+    passwordChecked: false,
+    passwordConfirmChecked: false,
+  })
 
+  
   const handleChangeNickname = (newNick) => {
     setNickname(newNick);
+    if(newNick.length < 10 && newNick.length >= 1) {
+      setIsAllChecked(prev => ({...prev, nicknameChecked: true}))
+    } else {
+      setIsAllChecked(prev => ({...prev, nicknameChecked: false}))
+    }
   }
   
   const handleChangeId = (newId) => {
-    setUserId(newId)
+    setUserId(newId);
+    if(idRule.test(newId)) {
+      setIsAllChecked(prev => ({...prev, userIdChecked: true}))
+    } else {
+      setIsAllChecked(prev => ({...prev, userIdChecked: false}))
+    }
   }
-
+  
   const handleChangePhone = (newPhone) => {
     setPhone(newPhone);
+    if(phoneRule.test(newPhone)) {
+      console.log('정규식에 맞습니다.')
+      setIsAllChecked(prev => ({...prev, phoneChecked: true}))
+    } else {
+      console.log('정규식에 안 맞습니다.')
+      setIsAllChecked(prev => ({...prev, phoneChecked: false}))
+    }
   }
-
+  
   const handleChangePassword = (newPassword) => {
     setPassword(newPassword);
+    if(passwordRule.test(newPassword)) {
+      setIsAllChecked(prev => ({...prev, passwordChecked: true}))
+    } else {
+      setIsAllChecked(prev => ({...prev, passwordChecked: false}))
+    }
   }
-
+  
   const handleChangePasswordConfirm = (newConfirm) => {
     setPasswordConfirm(newConfirm); 
   }
+  
+  const { nicknameChecked, userIdChecked, phoneChecked, passwordChecked, passwordConfirmChecked } = isAllChecked;
 
   useEffect(() => {
-    console.log('formData 값이 변경되었습니다.')
-    console.log('userId => ', userId)
-    console.log('password => ', password)
-    console.log('nickname => ', nickname)
-    console.log('phone => ', phone)
-    console.log('passwordConfirm => ', passwordConfirm)
-  }, [userId, password, nickname, phone, passwordConfirm])
+    if(password === passwordConfirm) {
+      setIsAllChecked(prev => ({...prev, passwordConfirmChecked: true}))
+    } else {
+      setIsAllChecked(prev => ({...prev, passwordConfirmChecked: false}))
+    }
+  }, [password, passwordConfirm])
+
+
 
   useEffect(() => {
+    console.log('isAllChecked가 변경 됐습니다!')
+    for(let checked of Object.keys(isAllChecked)) {
+      if(!isAllChecked[checked]) return setAvailable(false);
+    }
+    setAvailable(true)
+  }, [isAllChecked])
 
-  }, [nickname])
-
-  useEffect(() => {
-
-  }, [userId])
-
-  useEffect(() => {
-
-  }, [phone])
-
-  useEffect(() => {
-
-  }, [password])
-
-  useEffect(() => {
-
-  }, [passwordConfirm])
-
+  const onPress = () => {
+    console.log('pressed!')
+  }
 
   return (
     <>
@@ -77,8 +102,9 @@ const Signup = () => {
         contentContainerStyle={styles.signupContent}>
         <Text style={styles.subText}>정보를 등록하고 리그에 참여하세요</Text>
         <View style={styles.info}>
-          <AuthInput 
-            shouldChecked
+          <AuthInput
+            shouldChecked={true}
+            isChecked={nicknameChecked}
             title="별명" 
             placeholder="최대 10자 이내" 
             topRadius 
@@ -86,14 +112,16 @@ const Signup = () => {
             onChangeText={handleChangeNickname}
           />
           <AuthInput 
-            shouldChecked
+            shouldChecked={true}
+            isChecked={userIdChecked}
             title="아이디" 
             placeholder="4~10자 영문 숫자 조합" 
             value={userId}
             onChangeText={handleChangeId}
             />
           <AuthInput
-            shouldChecked
+            shouldChecked={true}
+            isChecked={phoneChecked}
             title="휴대폰번호"
             placeholder="숫자만 입력"
             bottomRadius
@@ -104,6 +132,7 @@ const Signup = () => {
         <View style={styles.password}>
           <AuthInput
             shouldChecked
+            isChecked={passwordChecked}
             title="비밀번호"
             placeholder="4~10자 영문 숫자 조합"
             secureTextEntry
@@ -113,6 +142,7 @@ const Signup = () => {
           />
           <AuthInput
             shouldChecked
+            isChecked={passwordConfirmChecked}
             title="비밀번호 확인"
             placeholder="비밀번호를 다시 입력해주세요."
             secureTextEntry
@@ -122,7 +152,7 @@ const Signup = () => {
           />
         </View>
       </ScrollView>
-      <StateCheckBottom disabled text="회원가입 완료" />
+      <StateCheckBottom available={available} text="회원가입 완료" onPress={onPress}/>
     </>
   );
 };
