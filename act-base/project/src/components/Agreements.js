@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import color from '../common/color';
 
 const Agreements = ({text, checked, onPress}) => {
   return (
@@ -8,7 +9,7 @@ const Agreements = ({text, checked, onPress}) => {
       <View
         style={[
           styles.agreementsCheckBox,
-          {backgroundColor: checked ? 'rgb(236, 85, 121)' : 'rgb(221, 221, 221)'},
+          {backgroundColor: checked ? color.warmPink : color.veryLightGrey4},
         ]}>
         <Icon
           name="check"
@@ -39,11 +40,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   agreementsText: {
-    color: '#999999',
+    color: color.brownGrey,
     fontSize: 15,
   },
   checkedText: {
-    color: 'black',
+    color: color.darkGrey,
   },
 });
 

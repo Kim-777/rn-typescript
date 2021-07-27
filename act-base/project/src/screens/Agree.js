@@ -4,27 +4,44 @@ import StateCheckBottom from '../components/StateCheckBottom';
 import Title from '../components/Title';
 import Agreements from '../components/Agreements';
 import SubAgreements from '../components/SubAgreements';
+import color from '../common/color';
 
 const Agree = () => {
   
   const [allCheck, setAllCheck] = useState(false);
 
   const [subCheckLists, setSubCheckLists] = useState([{
+    id: 1,
     essential: true,
-    text: "서비스 이용약관"
+    text: "서비스 이용약관",
+    checked: false
   }, {
+    id: 2,
     essential: true,
-    text: "개인정보처리방침"
+    text: "개인정보처리방침",
+    checked: false
   }, {
+    id: 3,
     essential: true,
-    text: "개인벙보 수집 및 이용"
+    text: "개인벙보 수집 및 이용",
+    checked: false
   }, {
+    id: 4,
     essential: false,
-    text: "개인정보 제3자 제공 동의"
+    text: "개인정보 제3자 제공 동의",
+    checked: false
   }, {
+    id: 5,
     essential: false,
-    text: "마케팅 활용 동의"
+    text: "마케팅 활용 동의",
+    checked: false
   }])
+
+  const onSubClick  = (id) => {
+    setSubCheckLists((prev) => (
+      prev.map((sub) => sub.id === id ? {...sub, checked: !sub.checked} : sub)
+    ))
+  }
 
   return (
     <>
@@ -37,8 +54,9 @@ const Agree = () => {
         />
       </View>
       <View style={[styles.subAgreeBox]}>
-        <SubAgreements text="서비스 이용약관" essential/>
-        <SubAgreements text="서비스 이용약관"/>
+        {
+          subCheckLists.map(list => (<SubAgreements key={list.id} subagreements={list} onPress={() => onSubClick(list.id)}/>))
+        }
       </View>
     </View>
     <StateCheckBottom text="다음으로"/>
@@ -55,13 +73,13 @@ const styles = StyleSheet.create({
   subText: {
     fontSize: 14,
     letterSpacing: -1.05,
-    color: 'rgb(102,102,102)',
+    color: color.brownishGrey,
     marginTop: 14.5,
     marginBottom: 30.5,
   },
   allAgreeBox: {
     borderWidth: 1,
-    borderColor: 'rgb(238, 238, 238)',
+    borderColor: color.veryLightGrey,
     height: 52,
     justifyContent: 'center',
     paddingHorizontal: 9,

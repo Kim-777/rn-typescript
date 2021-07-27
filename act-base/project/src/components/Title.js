@@ -1,5 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
+import color from '../common/color'
 
 const Title = ({ title }) => {
   return (
@@ -14,7 +15,7 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginTop: 90,
     borderBottomWidth: 1,
-    borderColor: 'rgb(236, 85, 121)'
+    borderColor: color.warmPink
   },
   title: {
     fontSize: 30,

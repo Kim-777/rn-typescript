@@ -12,6 +12,7 @@ import FlatButton from '../components/FlatButton';
 import Agreements from '../components/Agreements';
 import Divider from '../components/Divider';
 import AuthInput from '../components/AuthInput';
+import color from '../common/color';
 
 const Login = () => {
   const [id, setId] = useState('');
@@ -51,6 +52,7 @@ const Login = () => {
       </TouchableOpacity>
       <View style={{flex: 2, justifyContent: 'flex-start', paddingBottom: 40}}>
         <AuthInput
+          isFinished
           value={id}
           title="아이디"
           placeholder="아이디를 입력하세요."
@@ -66,15 +68,15 @@ const Login = () => {
         <FlatButton text={'로그인'} onPress={onPress} />
         <View style={[styles.optionView]}>
           <TouchableOpacity>
-            <Text>회원가입</Text>
+            <Text style={styles.setting}>회원가입</Text>
           </TouchableOpacity>
           <Divider paddingHorizontal={15} fontSize={13} />
           <TouchableOpacity>
-            <Text>아이디찾기</Text>
+            <Text style={styles.setting}>아이디찾기</Text>
           </TouchableOpacity>
           <Divider paddingHorizontal={15} fontSize={13} />
           <TouchableOpacity>
-            <Text>비밀번호찾기</Text>
+            <Text style={styles.setting}>비밀번호찾기</Text>
           </TouchableOpacity>
         </View>
         <View style={[styles.socialWrapper]}>
@@ -139,6 +141,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
   },
+  setting: {
+    color: color.brownishGrey
+  },
   socialBox: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -150,11 +155,11 @@ const styles = StyleSheet.create({
   },
   socialText: {
     fontSize: 11,
-    color: 'rgb(136, 136, 136)',
+    color: color.warmGrey,
     marginTop: 10
   },
   grayFont: {
-    color: 'rgb(136, 136, 136)',
+    color: color.warmGrey,
   },
   image: {
     marginHorizontal: 8,

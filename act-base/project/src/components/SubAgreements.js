@@ -1,19 +1,23 @@
 import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Button} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import color from '../common/color';
 
-const SubAgreements = ({essential, checked, text, onPress}) => {
+const SubAgreements = ({subagreements, onPress}) => {
+
+  const {essential, checked, text} = subagreements;
+
   return (
     <View style={[styles.wrapper]}>
       <TouchableOpacity style={styles.agreeBox} onPress={onPress}>
         <Icon 
           name="check" 
           size={12} 
-          color={checked ? 'pink' : 'rgb(153, 153, 153)'}
+          color={checked ? color.warmPink : color.brownGrey}
           style={styles.icon}  
         ></Icon>
         <Text
-          style={{color: 'rgb(153, 153, 153)', fontSize: 12}}
+          style={{color: checked ? color.darkGrey : color.brownGrey, fontSize: 12}}
         >
           {text}
           {essential ? ' (필수)' : ' (선택)'}
@@ -48,12 +52,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   showMore: {
-    color: 'rgb(51, 51, 51)',
+    color: color.darkGrey,
     fontSize: 12
   },
   bar: {
     position: 'absolute',
-    backgroundColor: 'rgb(236, 85, 121)', 
+    backgroundColor: color.warmPink, 
     width: '100%',
     height: 2,
     bottom: 2
