@@ -13,7 +13,7 @@ const Title = ({ title }) => {
 const styles = StyleSheet.create({
   titleWrapper: {
     marginLeft: 25,
-    marginTop: 90,
+    marginTop: 40,
     borderBottomWidth: 1,
     borderColor: color.warmPink
   },
