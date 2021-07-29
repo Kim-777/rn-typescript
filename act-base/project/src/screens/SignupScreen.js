@@ -91,7 +91,6 @@ const SignupScreen = ({ navigation }) => {
 
   const onPress = async () => {
     try {
-      console.log('pressed!');
       const result = await Account.signup({
         type: 'USER',
         active: 'true',
@@ -103,7 +102,6 @@ const SignupScreen = ({ navigation }) => {
 
       Alert.alert('회원가입 완료', '회원가입을 축하합니다!')
       navigation.navigate('LoginSuccess')
-      console.log('사인업 완료!', result)
 
     } catch (e) {
       console.log('signup 도중 에러 발생', e);

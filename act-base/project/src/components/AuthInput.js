@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     borderColor: color.veryLightGrey,
     height: 62,
     padding: 10,
-    backgroundColor: 'white',
+    backgroundColor: color.white,
     justifyContent: 'space-around',
   },
   focused: {
