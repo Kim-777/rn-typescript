@@ -14,7 +14,8 @@ const color = {
   darkGrey: 'rgb(51, 51,51)',
   warmPink: 'rgb(236, 85, 121)',
   grapefruit: 'rgb(252, 90, 90)',
-  forest: 'rgb(19, 90, 16)'
+  forest: 'rgb(19, 90, 16)',
+  transparent: 'rgba(255, 255, 255, 0)',
 }
 
 

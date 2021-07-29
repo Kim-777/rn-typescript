@@ -5,6 +5,8 @@ import Title from '../components/Title';
 import Agreements from '../components/Agreements';
 import SubAgreements from '../components/SubAgreements';
 import color from '../common/color';
+import NavHeader from '../components/NavHeader';
+import { goBack, goToMain } from '../utils/fn';
 
 const AgreeScreen = ({ navigation }) => {
   
@@ -79,10 +81,11 @@ const AgreeScreen = ({ navigation }) => {
     navigation.navigate('Signup')
   }
 
-  
 
+  
   return (
     <>
+    <NavHeader clickBack={navigation.canGoBack() && goBack(navigation)} clickClose={goToMain(navigation)}/>
     <Title title="약관동의" />
     <View style={[styles.agreeContent]}>
       <Text style={styles.subText}>정보를 등록하고 리그에 참여하세요.</Text>

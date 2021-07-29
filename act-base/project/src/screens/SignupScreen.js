@@ -12,8 +12,17 @@ import {
   regexPhone,
   regexPassword
 } from '../utils/regex';
+import NavHeader from '../components/NavHeader';
+import { goBack, goToMain } from '../utils/fn';
+
+
 
 const SignupScreen = ({ navigation }) => {
+
+  const passwordSubText = {
+    errorText: '비밀번호가 일치하지 않습니다.',
+    successText: "비밀번호가 일치합니다."
+  }
 
   const [userId, setUserId] = useState('');
   const [password, setPassword] = useState('');
@@ -110,6 +119,7 @@ const SignupScreen = ({ navigation }) => {
 
   return (
     <>
+      <NavHeader clickBack={goBack(navigation)} clickClose={goToMain(navigation)}/>
       <Title title="회원가입" />
       <ScrollView
         style={styles.signupWrapper}
@@ -163,8 +173,10 @@ const SignupScreen = ({ navigation }) => {
             bottomRadius
             value={passwordConfirm}
             onChangeText={handleChangePasswordConfirm}
+            subText={passwordSubText}
           />
         </View>
+        <View style={{paddingVertical: 20}} />
       </ScrollView>
       <StateCheckBottom
         available={isAll}
@@ -180,7 +192,7 @@ const styles = StyleSheet.create({
     // minHeight: '100%',
   },
   signupContent: {
-    flex: 1,
+    // flex: 1,
     minHeight: '100%',
     paddingHorizontal: 25,
   },

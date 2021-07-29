@@ -17,6 +17,7 @@ import color from '../common/color';
 // import { login } from '../api';
 import Account from '../api/Account';
 import SuccessPage from '../components/SuccessPage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const LoginScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -38,7 +39,9 @@ const LoginScreen = ({navigation}) => {
     setLoginComplete(false);
     setId('');
     setPassword('');
-    navigation.popToTop('Home');
+    navigation.navigate('Home', {
+      autoLogin
+    });
   };
 
   const onPress = async () => {
@@ -51,8 +54,17 @@ const LoginScreen = ({navigation}) => {
 
       const result = await Account.login(formData);
       console.log(result.data);
+
+      await Account.setToken(result.data.access_token);
+      const checked = await Account.userInfo();
+
+      console.log('checked', checked);
+
+
       setIsLoading(false);
       setLoginComplete(true);
+
+
     } catch (e) {
       if (e.response.status >= 400 && e.response.status < 500) {
         Alert.alert('로그인 실패', '알맞은 아이디와 비밀번호를 입력해주세요.');
@@ -118,11 +130,11 @@ const LoginScreen = ({navigation}) => {
         />
         <FlatButton text={'로그인'} onPress={onPress} />
         <View style={[styles.optionView]}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {navigation.navigate('Agree')}}>
             <Text style={styles.setting}>회원가입</Text>
           </TouchableOpacity>
           <Divider paddingHorizontal={15} fontSize={13} />
-          <TouchableOpacity>
+          <TouchableOpacity onPress={() => {navigation.navigate('FindId')}}>
             <Text style={styles.setting}>아이디찾기</Text>
           </TouchableOpacity>
           <Divider paddingHorizontal={15} fontSize={13} />

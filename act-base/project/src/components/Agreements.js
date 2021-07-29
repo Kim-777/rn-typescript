@@ -11,12 +11,7 @@ const Agreements = ({text, checked, onPress}) => {
           styles.agreementsCheckBox,
           {backgroundColor: checked ? color.warmPink : color.veryLightGrey4},
         ]}>
-        <Icon
-          name="check"
-          size={15}
-          color={'white'}
-          onPress={onPress}
-        />
+        <Icon name="check" size={15} color={'white'} onPress={onPress} />
       </View>
       <Text style={[styles.agreementsText, checked && styles.checkedText]}>
         {text}

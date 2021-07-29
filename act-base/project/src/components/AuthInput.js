@@ -19,6 +19,7 @@ const AuthInput = ({
   bottomRadius,
   shouldChecked,
   isChecked,
+  subText,
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -63,6 +64,9 @@ const AuthInput = ({
             />
           ) : null)}
       </View>
+      <View>
+        {subText && value ? (<Text style={{fontSize: 12, color: isChecked ? color.forest : color.grapefruit}}>{isChecked ? `${subText.successText}` : `${subText.errorText}`}</Text>) : null}       
+      </View>
     </TouchableOpacity>
   );
 };
@@ -71,7 +75,6 @@ const styles = StyleSheet.create({
   authInputWrapper: {
     borderWidth: 1,
     borderColor: color.veryLightGrey,
-    height: 62,
     padding: 10,
     backgroundColor: color.white,
     justifyContent: 'space-around',
@@ -84,6 +87,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   authInput: {
+    height: 40,
     fontSize: 14,
     flex: 1,
   },

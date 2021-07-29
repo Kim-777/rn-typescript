@@ -12,7 +12,12 @@ const Account = {
       },
     });
   },
+  setToken: access_token => {
+    AxiosManager.defaults.headers.common.authorization = `Bearer ${access_token}`;
+  },
+  userInfo: () => {
+    return AxiosManager.get('/api/accounts/authentication')
+  }
 };
-
 
 export default Account;
