@@ -3,27 +3,13 @@ import { View, Text, Button } from 'react-native'
 
 const HomeScreen = ({ navigation, route }) => {
 
-  React.useEffect(() => {
-    if(route.params?.post) {
-      console.log(route.params?.post)
-    }
-  }, [route.params?.post])
-
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text>Home Screen</Text>
+      <Text style={{fontSize: 30}}>This is the home screen</Text>
       <Button
         title="Go to Details"
-        onPress={() => navigation.navigate('Details', {
-          itemId: 86,
-          otherParam: 'anything you want here'
-        })}
+        onPress={() => navigation.navigate('Details')}
       />
-      <Button
-        title="Create post"
-        onPress={() => navigation.navigate('CreatePost')}
-      />
-      <Text style={{margin: 10}}>Post: {route.params?.post}</Text>
     </View>
   )
 }

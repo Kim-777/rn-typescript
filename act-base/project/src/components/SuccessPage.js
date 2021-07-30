@@ -4,7 +4,7 @@ import StateCheckBottom from '../components/StateCheckBottom';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import color from '../common/color';
 
-const SuccessPage = ({ onPress, nowPage }) => {
+const SuccessPage = ({ onPress, nowPage, name }) => {
 
   return (
     <>
@@ -18,7 +18,7 @@ const SuccessPage = ({ onPress, nowPage }) => {
         />
       </View>
       <Text style={styles.bigFont}>{nowPage}이 완료되었습니다.</Text>
-      {/* <Text style={styles.smallFont}>로그인하고 바로 리그에 참여해 보세요.</Text> */}
+      {name ? <Text style={styles.smallFont}> {name}님 리그에 참여해 보세요.</Text> : <Text>뭐징</Text>}
     </View>
     <StateCheckBottom text="메인으로가기" available onPress={onPress}/>
     </>

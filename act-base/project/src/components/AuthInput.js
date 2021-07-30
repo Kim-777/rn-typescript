@@ -31,10 +31,6 @@ const AuthInput = ({
     setIsFocused(false);
   };
 
-  useEffect(() => {
-    console.log('isFocused', isFocused);
-  }, [isFocused]);
-
   return (
     <TouchableOpacity
       style={[

@@ -1,12 +1,40 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {StyleSheet, View, Text, Button} from 'react-native';
 import Divider from '../components/Divider';
 import color from '../common/color';
+import { getAccessToken, storeAccessToken } from '../utils/asyncStorage';
+import Account from '../api/Account';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation, route}) => {
+
+  const userNickname = route?.params?.userNickname;
+
+  const [loginedUser, setLoginedUser] = useState(null);
+
+  useEffect(() => {
+
+    const checkLoginedUser = async () => {
+
+      const access_token = await getAccessToken();
+      
+      if(access_token) {
+        await Account.setToken(access_token);
+        console.log('토큰 저장완료!');
+        await Account.userInfo();
+      } else {
+        console.log('저장되어 있던 토큰이 없습니다.')
+      }
+      
+    }
+
+    checkLoginedUser();
+
+  }, [])
+
   return (
     <View style={[styles.view]}>
       <Text style={{fontSize: 20}}>동학개미운동 메인 페이지</Text>
+      {userNickname ? (<Text>{userNickname}님 환영합니다!</Text>) : null}
       <Divider paddingVertical={5} />
       <Button
         title="디테일(테스트) 하러 가기"

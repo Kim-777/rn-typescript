@@ -17,12 +17,12 @@ import color from '../common/color';
 // import { login } from '../api';
 import Account from '../api/Account';
 import SuccessPage from '../components/SuccessPage';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { storeAccessToken } from '../utils/asyncStorage';
 
 const LoginScreen = ({navigation}) => {
   const [isLoading, setIsLoading] = useState(false);
   const [loginComplete, setLoginComplete] = useState(false);
-
+  const [loginedUser, setLoginedUser] = useState('');
   const [id, setId] = useState('');
   const [password, setPassword] = useState('');
   const [autoLogin, setAutoLogin] = useState(false);
@@ -40,7 +40,8 @@ const LoginScreen = ({navigation}) => {
     setId('');
     setPassword('');
     navigation.navigate('Home', {
-      autoLogin
+      autoLogin,
+      userNickname: loginedUser,
     });
   };
 
@@ -52,18 +53,20 @@ const LoginScreen = ({navigation}) => {
       formData.append('password', password);
       formData.append('grant_type', 'password');
 
-      const result = await Account.login(formData);
-      console.log(result.data);
+      const { data } = await Account.login(formData);
+      console.log(data.access_token);
 
-      await Account.setToken(result.data.access_token);
-      const checked = await Account.userInfo();
+      await Account.setToken(data.access_token);
 
-      console.log('checked', checked);
+      if(autoLogin) {
+        await storeAccessToken(data.access_token)
+        console.log('storage에 토큰 저장완료!')
+      }
+      const user = await Account.userInfo();
 
-
+      setLoginedUser(user.data.nickname);
       setIsLoading(false);
       setLoginComplete(true);
-
 
     } catch (e) {
       if (e.response.status >= 400 && e.response.status < 500) {
@@ -95,7 +98,7 @@ const LoginScreen = ({navigation}) => {
   if (loginComplete)
     return (
       <>
-        <SuccessPage nowPage="로그인" onPress={goToMain} />
+        <SuccessPage nowPage="로그인" onPress={goToMain} name={loginedUser}/>
       </>
     );
 
