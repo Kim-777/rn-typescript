@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {StyleSheet, SafeAreaView, FlatList, View} from 'react-native';
 import {Colors} from 'react-native-paper';
 import Person from './src/copy/Person';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import * as D from './src/data';
 
 
 const people: D.IPerson[] = D.makeArray(10).map(D.createRandomPerson);
 
+
+
 function App() {
+
+  useEffect(() => {
+    console.log(D.createRandomPerson());
+  }, [])
+
   return (
     <SafeAreaView style={styles.flex}>
         <FlatList 

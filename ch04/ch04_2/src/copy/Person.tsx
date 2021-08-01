@@ -44,6 +44,42 @@ const Person: FC<PersonProps> = ({person}) => {
             onPress={deletePressed}
           />
         </View>
+        <Text
+          numberOfLines={3}
+          ellipsizeMode="tail"
+          style={[styles.text, styles.comments]}>
+          {person.comments}
+        </Text>
+        <Image style={[styles.image]} source={{uri: person.image}} />
+        <View style={[styles.countsView]}>
+          <IconText
+            viewStyle={[styles.touchableIcon]}
+            onPress={countIconPressed('comment')}
+            name="comment"
+            size={24}
+            color={Colors.blue500}
+            textStyle={[styles.iconText]}
+            text={person.counts.comment}
+          />
+          <IconText
+            viewStyle={[styles.touchableIcon]}
+            onPress={countIconPressed('retweet')}
+            name="twitter-retweet"
+            size={24}
+            color={Colors.blue500}
+            textStyle={[styles.iconText]}
+            text={person.counts.comment}
+          />
+          <IconText
+            viewStyle={[styles.touchableIcon]}
+            onPress={countIconPressed('heart')}
+            name="heart"
+            size={24}
+            color={Colors.blue500}
+            textStyle={[styles.iconText]}
+            text={person.counts.comment}
+          />
+        </View>
       </View>
     </View>
   );

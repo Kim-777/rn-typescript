@@ -110,10 +110,11 @@ const SignupScreen = ({ navigation }) => {
       });
 
       Alert.alert('회원가입 완료', '회원가입을 축하합니다!')
-      navigation.navigate('LoginSuccess')
+      navigation.navigate('Home')
 
     } catch (e) {
       console.log('signup 도중 에러 발생', e);
+      Alert.alert('에러', '회원가입 도중 에러가 발생했습니다.')
     }
   };
 
