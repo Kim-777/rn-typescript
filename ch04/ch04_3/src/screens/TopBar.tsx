@@ -1,23 +1,34 @@
-import React from 'react'
-import {StyleSheet, View, Text } from 'react-native'
+import React, { useCallback } from 'react';
+import type {Dispatch, SetStateAction} from 'react';
+import type { FC } from 'react';
+import {StyleSheet, Text, View } from 'react-native'
 import { Colors } from 'react-native-paper'
 import * as D from '../data'
 
+export type TopBarProps = {
+  setPeople: Dispatch<SetStateAction<D.IPerson[]>>
+}
 
-const title= 'CopyMe'
 
+const TopBar: FC<TopBarProps> = ({ setPeople }) => {
 
-const CopyMe = () => {
+  const add = useCallback(() => {
+    setPeople(prevPeople => [D.createRandomPerson(), ...prevPeople])
+  }, []);
+
+  const deleteAll = useCallback(() => setPeople(notUsed => []), [])
+
   return (
-    <View style={[styles.view]}>
-      <Text style={[styles.text]}>{title}</Text>
+    <View style={[styles.topBar]}>
+      <Text style={[styles.textButton]} onPress={add}>add</Text>
+      <Text style={[styles.textButton]} onPress={deleteAll}>delete all</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  view: {flex: 1, padding: 5, backgroundColor: Colors.blue900},
-  text: {fontSize: 20, color: 'white'}
+  topBar: {flexDirection: 'row', padding: 5, justifyContent: 'space-between', backgroundColor: Colors.lightBlue700},
+  textButton: {color: 'white', fontSize: 20}
 })
 
-export default CopyMe
+export default TopBar

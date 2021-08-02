@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useMemo, useState } from 'react';
 import type {FC} from 'react';
 import {
   SafeAreaView,
@@ -14,6 +14,7 @@ import PersonUsingValueState from './src/screens/PersonUsingValueState';
 import PersonUsingObjectState from './src/screens/PersonUsingObjectState';
 import PersonUsingPassingState from './src/screens/PersonUsingPassingState';
 import * as D from './src/data';
+import TopBar from './src/screens/TopBar';
 
 const {width} = Dimensions.get('window');
 
@@ -31,7 +32,7 @@ const personInfomations: PersonInformation[] = [
 const numberOfComponents = personInfomations.length;
 
 export default function App() {
-  const people = useMemo(() => D.makeArray(10).map(D.createRandomPerson), []);
+  const [people, setPeople] = useState<D.IPerson[]>([])
 
   const children = useMemo(
     () =>
@@ -48,11 +49,12 @@ export default function App() {
           />
         </View>
       )),
-    [],
+    [people.length],
   );
 
   return (
     <SafeAreaView style={[styles.flex]}>
+      <TopBar setPeople={setPeople}/>
       <ScrollView
         horizontal
         contentContainerStyle={styles.horizontalScrollView}>{children}</ScrollView>
