@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import type {FC} from 'react';
 import * as D from '../data';
 import {Text, View, Image, Alert} from 'react-native';
@@ -14,11 +14,19 @@ export type PersonProps = {
   person: D.IPerson;
 };
 
-const avatarPressed = () => Alert.alert('avatar pressed');
-const deletePerssed = () => Alert.alert('delete pressed');
-const countIconPressed = (name: string) => () => Alert.alert(`${name} pressed`);
+const PersonUsingObjectState: FC<PersonProps> = ({person: initialPerson}) => {
 
-const Person: FC<PersonProps> = ({person}) => {
+  const [person, setPerson] = useState<D.IPerson>(initialPerson)
+
+  const avatarPressed = useCallback(() => Alert.alert('avatar pressed'), []);
+  const deletePerssed = useCallback(() => Alert.alert('delete pressed'), []);
+
+  const onPressComment = useCallback(() => setPerson(person => ({...person, counts: { ...person.counts, comment: person.counts.comment + 1}})), [])
+  const onPressRetweet = useCallback(() => setPerson(person => ({...person, counts: { ...person.counts, retweet: person.counts.retweet + 1}})), [])
+  const onPressHeart = useCallback(() => setPerson(person => ({...person, counts: { ...person.counts, heart: person.counts.heart + 1}})), [])
+
+
+
   return (
     <View style={[styles.view]}>
       <View style={[styles.leftView]}>
@@ -53,7 +61,7 @@ const Person: FC<PersonProps> = ({person}) => {
         <View style={[styles.countsView]}>
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('comment')}
+            onPress={onPressComment}
             name="comment"
             size={24}
             color={Colors.blue500}
@@ -62,7 +70,7 @@ const Person: FC<PersonProps> = ({person}) => {
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('retweet')}
+            onPress={onPressRetweet}
             name="twitter-retweet"
             size={24}
             color={Colors.purple500}
@@ -71,7 +79,7 @@ const Person: FC<PersonProps> = ({person}) => {
           />
           <IconText
             viewStyle={[styles.touchableIcon]}
-            onPress={countIconPressed('heart')}
+            onPress={onPressHeart}
             name="heart"
             size={24}
             color={Colors.red500}
@@ -84,4 +92,4 @@ const Person: FC<PersonProps> = ({person}) => {
   );
 };
 
-export default Person;
+export default PersonUsingObjectState;
