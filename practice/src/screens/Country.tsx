@@ -6,7 +6,7 @@ import * as D from '../data'
 const title = 'CopyMe';
 
 
-const CopyMe = () => {
+const Country = () => { 
     return (
         <View style={[styles.view]}>
             <Text style={[styles.text]}>{title}</Text>
@@ -19,4 +19,5 @@ const styles = StyleSheet.create({
     text: {fontSize: 20, color: 'white'}
 })
 
-export default CopyMe
+
+export default Country

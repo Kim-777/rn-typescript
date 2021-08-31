@@ -1,14 +1,4 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
-import React from 'react';
+import React, { useMemo, useState, useCallback } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,61 +7,48 @@ import {
   Alert,
   FlatList
 } from 'react-native';
+import type { FC } from 'react';
 import * as D from './src/data'
 import { SafeAreaView, ScrollView } from 'react-native';
 import { Colors } from 'react-native-paper';
 import Color from 'color';
 import { Platform, Dimensions } from 'react-native';
-import { ImageBackground, Image } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-import Person from './src/copy/Person';
-import { useClock } from './src/hooks'
-import Cache from './src/screens/Cache';
-import Memo from './src/screens/Memo';
-import Fibo from './src/screens/Fibo';
-
-const people = D.makeArray(100).map(D.createRandomPerson)
-const avatarUrl = D.randomAvatarUrl();
-const avatarSize = 50;
-
-const { width } = Dimensions.get('window');
-const numberOfComponents = 3
+import Country from './src/screens/Country';
+import LifeCycle from './src/screens/LifeCycle';
+import Fetch from './src/screens/Fetch';
+import Timer from './src/screens/Timer';
 
 const App = () => {
 
-  const time = useClock();
-
-  const onIconPress = () => {
-    Alert.alert('icon pressed');
-  }
+  const selects = useMemo(() => ['lifeCycle', 'timer', 'interval', 'fetch', 'country'], []);
+  const [select, setSelect] = useState<string>(selects[0]);
+  const onPress = useCallback((text) => () => setSelect(text), []);
+  const buttons = useMemo(() => selects.map((text) => (
+    <Text 
+      key={text}
+      onPress={onPress(text)}
+      style={styles.button}
+    >
+      {text}
+    </Text>
+  )), [])
 
   return (
-        <SafeAreaView style={[styles2.safeAreaView]}>
-          <ScrollView horizontal contentContainerStyle={[styles2.contentContainer]}>
-            <Cache />
-            <Memo />
-            <Fibo />
-          </ScrollView>
+        <SafeAreaView style={[styles.safeAreaView]}>
+          <View style={styles.topBar}>{buttons}</View>
+          {select == 'lifeCycle' && <LifeCycle />}
+          {select == 'timer' && <Timer />}
+          {select == 'fetch' && <Fetch />}
+          {select == 'country' && <Country />}
         </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  text: {fontSize: 25, color: Color(Colors.blue500).alpha(0.7).lighten(0.9).string()},
-  imageBackground: {padding: 10},
-  flex: {flex: 1, backgroundColor: Colors.lightBlue100},
-  padding10: {padding: 10},
-  image: {width: avatarSize, height: avatarSize, borderRadius: avatarSize/2},
-  regular: {fontFamily: 'DancingScript-Regular'},
-  medium: {fontFamily: 'DancingScript-Medium'},
-  semiBold: {fontFamily: 'DancingScript-SemiBold'},
-  bold: {fontFamily: 'DancingScript-Bold'},
-  itemSeparator: {borderWidth: 1, borderColor: Color(Colors.grey500).lighten(0.3).string()}
+  safeAreaView: {flex:1},
+  topBar: {flexDirection: 'row', flexWrap: 'wrap', padding: 5, justifyContent: 'space-between', backgroundColor: Colors.lightBlue500},
+  button: {fontSize: 20, color: 'white'},
 });
 
-const styles2 = StyleSheet.create({
-  safeAreaView: {flex:1},
-  contentContainer: {width: width * numberOfComponents}
-})
 
 export default App;
