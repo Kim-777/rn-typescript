@@ -17,10 +17,11 @@ import Country from './src/screens/Country';
 import LifeCycle from './src/screens/LifeCycle';
 import Fetch from './src/screens/Fetch';
 import Timer from './src/screens/Timer';
+import Interval from './src/screens/Interval';
 
 const App = () => {
 
-  const selects = useMemo(() => ['lifeCycle', 'timer', 'interval', 'fetch', 'country'], []);
+  const selects = useMemo(() => ['lifeCycle', 'timer', 'interval', 'fetch'], []);
   const [select, setSelect] = useState<string>(selects[0]);
   const onPress = useCallback((text) => () => setSelect(text), []);
   const buttons = useMemo(() => selects.map((text) => (
@@ -38,8 +39,8 @@ const App = () => {
           <View style={styles.topBar}>{buttons}</View>
           {select == 'lifeCycle' && <LifeCycle />}
           {select == 'timer' && <Timer />}
+          {select == 'interval' && <Interval />}
           {select == 'fetch' && <Fetch />}
-          {select == 'country' && <Country />}
         </SafeAreaView>
   );
 };
