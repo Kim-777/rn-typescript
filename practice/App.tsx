@@ -12,7 +12,7 @@ const App = () => {
     scheme == 'dark' ? DarkTheme : DefaultTheme,
   );
   const toggleTheme = useCallback(
-    () => setTheme(theme => (theme.dark ? DefaultTheme : DarkTheme)),
+    () => setTheme(theme => theme.dark ? DefaultTheme : DarkTheme),
     [],
   );
 

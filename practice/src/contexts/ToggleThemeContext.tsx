@@ -10,6 +10,8 @@ const defaultToggleThemeContext = {
 }
 
 const ToggleThemeContext = createContext<ToggleThemeContextType>(defaultToggleThemeContext);
+
+
 type ToggleThemeContextProps = {
   toggleTheme: () => void
 };
