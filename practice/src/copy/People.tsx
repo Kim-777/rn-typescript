@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from "react";
+import React, {useState, useCallback, useRef, useEffect, useMemo} from "react";
 import { StyleSheet, View, Text, Switch, FlatList } from 'react-native'
 import { useTheme } from "react-native-paper";
 import { useToggleTheme } from "../contexts";
