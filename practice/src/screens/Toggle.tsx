@@ -5,7 +5,7 @@ import { useToggleTheme } from "../contexts";
 import * as D from '../data'
 import Person from "./Person";
 
-export default function People() {
+export default function Toggle() {
   const [people, setPeople] = useState<D.IPerson[]>([D.createRandomPerson()])
   const theme = useTheme()
   const toggleTheme = useToggleTheme()

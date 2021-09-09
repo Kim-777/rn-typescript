@@ -16,9 +16,12 @@ export type PersonProps = {
   deletePressed: () => void
 };
 
-const Person: FC<PersonProps> = ({person, deletePressed}) => {
+const PersonBasic: FC<PersonProps> = ({person, deletePressed}) => {
 
-  const avatarPressed = useCallback(() => Alert.alert('avatar pressed.'), [])
+  const animValue = useRef(new Animated.Value(0)).current;
+  const rightViewAnimStyle = { opacity: animValue }
+
+  const avatarPressed = useCallback(() => Animated.timing(animValue, {useNativeDriver: true, toValue: 1}).start(), [])
 
   return (
     <View style={[styles.view]}>
@@ -29,8 +32,9 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
           size={50}
           onPress={avatarPressed}
         />
+        <Text style={[styles.text]}>Press Me</Text>
       </View>
-      <View style={[styles.rightView]}>
+      <Animated.View style={[styles.rightView, rightViewAnimStyle]}>
         <Text style={[styles.name]}>{person.name}</Text>
         <Text style={[styles.email]}>{person.email}</Text>
         <View style={[styles.dateView]}>
@@ -56,9 +60,9 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
           <Icon name="twitter-retweet" size={24} color={Colors.purple500} />
           <Icon name="heart" size={24} color={Colors.red500} />
         </View>
-      </View>
+      </Animated.View>
     </View>
   );
 };
 
-export default Person;
+export default PersonBasic;
