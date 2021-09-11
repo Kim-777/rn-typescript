@@ -7,7 +7,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import {styles} from './Person.style';
 import moment from 'moment-with-locales-es6';
 import {Avatar} from '../components';
-import {useToggle} from '../hooks';
+import {useToggle, useAnimatedValue, useMonitorAnimatedValue, useStyle} from '../hooks';
 import {Text as ThemeText, View as ThemeView} from '../theme/paper';
 
 moment.locale('ko');
@@ -17,39 +17,33 @@ export type PersonProps = {
   deletePressed: () => void;
 };
 
-const PersonMonitor: FC<PersonProps> = ({person, deletePressed}) => {
-  const animValue = useRef(new Animated.Value(0)).current;
-  const [realAnimValue, setRealAnimValue] = useState<number>(0);
-  const [animationEnd, setAnimationEnd] = useState<boolean>(false);
+const PersonInterpolate: FC<PersonProps> = ({person, deletePressed}) => {
+  const animValue = useAnimatedValue(0)
+  const [started, toggleStarted] = useToggle(false);
 
-  useEffect(() => {
-    const id = animValue.addListener((state: {value: number}) => {
-      setRealAnimValue(state.value);
-    });
-    return () => animValue.removeListener(id);
-  }, []);
+  const avatarPressed = useCallback(() => {
+    Animated.timing(animValue, {
+      toValue: started ? 0 : 1,
+      useNativeDriver: false,
+      duration: 1000,
+      easing: Easing.bounce
+    }).start(toggleStarted)
+  }, [started]);
 
-  const rightViewAnimStyle = {opacity: animValue};
+  const textAnimStyle = useStyle({
+    fontSize: animValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: [10, 30]
+    }),
+    color: animValue.interpolate({
+      inputRange: [0, 0.7, 1],
+      outputRange: [Colors.lightBlue900, Colors.lime500, Colors.blue900]
+    })
+  })
 
-  const avatarPressed = useCallback(
-    () =>
-      Animated.timing(animValue, {
-        useNativeDriver: true,
-        toValue: 1,
-        duration: 3000,
-        easing: Easing.bounce,
-      }).start(() => setAnimationEnd(notUsed => true)),
-    [],
-  );
 
   return (
-    <ThemeView>
-      <ThemeText style={[{fontSize: 20}]}>
-        realAnimValue: {realAnimValue}
-      </ThemeText>
-      <ThemeText style={[{fontSize: 20}]}>
-        animationEnd: {animationEnd ? 'true' : 'false'}
-      </ThemeText>
+    <View style={[styles.view]}>
       <View style={[styles.leftView]}>
         <Avatar
           imageStyle={[styles.avatar]}
@@ -59,8 +53,8 @@ const PersonMonitor: FC<PersonProps> = ({person, deletePressed}) => {
         />
         <Text style={[styles.text]}>Press Me</Text>
       </View>
-      <Animated.View style={[styles.rightView, rightViewAnimStyle]}>
-        <Text style={[styles.name]}>{person.name}</Text>
+      <View style={[styles.rightView]}>
+        <Animated.Text style={[styles.name, textAnimStyle]}>{person.name}</Animated.Text>
         <Text style={[styles.email]}>{person.email}</Text>
         <View style={[styles.dateView]}>
           <Text style={[styles.text]}>
@@ -85,9 +79,9 @@ const PersonMonitor: FC<PersonProps> = ({person, deletePressed}) => {
           <Icon name="twitter-retweet" size={24} color={Colors.purple500} />
           <Icon name="heart" size={24} color={Colors.red500} />
         </View>
-      </Animated.View>
-    </ThemeView>
+      </View>
+    </View>
   );
 };
 
-export default PersonMonitor;
+export default PersonInterpolate;
