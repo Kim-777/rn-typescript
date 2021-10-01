@@ -4,10 +4,10 @@ import { Colors } from 'react-native-paper'
 import * as D from '../data'
 
 
-export default function AutoFocus() {
+export default function Imperative() {
   return (
     <View style={[styles.view]}>
-      <Text style={[styles.text]}>AutoFocus</Text>
+      <Text style={[styles.text]}>Imperative</Text>
     </View>
   )
 }

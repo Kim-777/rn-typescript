@@ -3,11 +3,10 @@ import { StyleSheet, View, Text } from 'react-native';
 import { Colors } from 'react-native-paper'
 import * as D from '../data'
 
-const title = "CopyMe"
 export default function CopyMe() {
   return (
     <View style={[styles.view]}>
-      <Text style={[styles.text]}>{title}</Text>
+      <Text style={[styles.text]}></Text>
     </View>
   )
 }
