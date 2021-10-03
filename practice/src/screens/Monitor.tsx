@@ -3,9 +3,9 @@ import {StyleSheet, View, Text, Switch, FlatList} from 'react-native';
 import {useTheme} from 'react-native-paper';
 import {useToggleTheme} from '../contexts';
 import * as D from '../data';
-import Person from './Person';
+import Person from './PersonMonitor';
 
-export default function People() {
+export default function Monitor() {
   const [people, setPeople] = useState<D.IPerson[]>([]);
   const theme = useTheme();
   const toggleTheme = useToggleTheme();

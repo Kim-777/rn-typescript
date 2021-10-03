@@ -8,6 +8,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Colors } from 'react-native-paper'
 import { useToggle } from '../hooks'
 import { Avatar } from '../components'
+import { Text as ThemeText, View as ThemeView} from '../theme/paper'
 
 
 moment.locale('ko');
@@ -17,12 +18,31 @@ export type PersonProps = {
   deletePressed: () => void
 };
 
-const Person: FC<PersonProps> = ({person, deletePressed}) => {
+const PersonMonitor: FC<PersonProps> = ({person, deletePressed}) => {
+
+  const animValue = useRef(new Animated.Value(0)).current;
+  const [realAnimValue, setRealAnimValue] = useState<number>(0)
+  const [animationEnd, setAnimationEnd] = useState<boolean>(false)
+
+  useEffect(() => {
+    const id = animValue.addListener((state: {value: number}) => {
+      setRealAnimValue(state.value)
+    })
+    return () => animValue.removeListener(id)
+  }, [])
   
-  const avatarPressed = useCallback(() => Alert.alert('avatar pressed'), [])
+  const avatarPressed = useCallback(() => Animated.timing(animValue, {useNativeDriver: true, toValue: 1, duration: 3000, easing: Easing.bounce}).start(() => setAnimationEnd((notUsed) => true)), [])
+
+  const rightViewAnimStyle = { opacity: animValue }
 
   return (
-    <View style={[styles.view]}>
+    <ThemeView>
+      <ThemeText style={[{fontSize: 20}]}>
+        realAnimValue: {realAnimValue}
+      </ThemeText>
+      <ThemeText style={[{fontSize: 20}]}>
+        animationEnd: {animationEnd ? 'true' : 'false'}
+      </ThemeText>
       <View style={[styles.leftView]}>
         <Avatar
           imageStyle={[styles.avatar]}
@@ -32,7 +52,7 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
         />
         <Text style={[styles.text]}>Press Me</Text>
       </View>
-      <View style={[styles.rightView]}>
+      <Animated.View style={[styles.rightView, rightViewAnimStyle]}>
         <Text style={[styles.name]}>{person.name}</Text>
         <Text style={[styles.email]}>{person.email}</Text>
         <View style={[styles.dateView]}>
@@ -53,9 +73,9 @@ const Person: FC<PersonProps> = ({person, deletePressed}) => {
           <Icon name="twitter-retweet" size={24} color={Colors.purple500}/>
           <Icon name="comment" size={24} color={Colors.red500}/>
         </View>
-      </View>
-    </View>
+      </Animated.View>
+    </ThemeView>
   );
 };
 
-export default Person;
+export default PersonMonitor;
