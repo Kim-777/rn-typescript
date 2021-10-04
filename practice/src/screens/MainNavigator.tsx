@@ -4,22 +4,26 @@ import Arithmetic from "./Arithmetic";
 import Carousel from "./Carousel";
 import InsideLayout from "./InsideLayout";
 import Transform from "./Transform";
+import Sequence from './Sequence'
+import Parallel from "./Parallel";
+import Stagger from "./Stagger";
+import EnterExit from "./EnterExit";
 
 export default function MainNavigator() {
   const [index, setIndex] = useState<number>(0)
   const [routes] = useState([
-    {key: 'transform', title: 'Transform', icon: 'arrow-collapse-right'},
-    {key: 'insideLayout', title: 'InsideLayout', icon: 'animation-play-outline'},
-    {key: 'arithmetic', title: 'Arithmetic', icon: 'format-annotation-plus'},
-    {key: 'carousel', title: 'Carousel', icon: 'border-vertical'},
+    {key: 'sequence', title: 'Sequence', icon: 'view-sequential'},
+    {key: 'parallel', title: 'Parallel', icon: 'view-parallel'},
+    {key: 'stagger', title: 'Stagger', icon: 'arrange-send-backward'},
+    {key: 'enterExit', title: 'EnterExit', icon: 'location-enter'},
 
   ])
 
   const renderScene = BottomNavigation.SceneMap({
-    transform: Transform,
-    insideLayout: InsideLayout,
-    arithmetic: Arithmetic,
-    carousel: Carousel
+    sequence: Sequence,
+    parallel: Parallel,
+    stagger: Stagger,
+    enterExit: EnterExit
   })
 
   return (
