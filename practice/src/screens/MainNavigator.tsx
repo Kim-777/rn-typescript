@@ -8,22 +8,22 @@ import Sequence from './Sequence'
 import Parallel from "./Parallel";
 import Stagger from "./Stagger";
 import EnterExit from "./EnterExit";
+import Drag from "./Drag";
+import LeftSwipe from "./LeftSwipe";
+import PanRes from "./PanRes";
 
 export default function MainNavigator() {
   const [index, setIndex] = useState<number>(0)
   const [routes] = useState([
-    {key: 'sequence', title: 'Sequence', icon: 'view-sequential'},
-    {key: 'parallel', title: 'Parallel', icon: 'view-parallel'},
-    {key: 'stagger', title: 'Stagger', icon: 'arrange-send-backward'},
-    {key: 'enterExit', title: 'EnterExit', icon: 'location-enter'},
-
+    {key: 'drag', title: 'Drag', icon: 'drag'},
+    {key: 'leftSwipe', title: 'LeftSwipe', icon: 'drag-horizontal'},
+    {key: 'panRes', title: 'PanRes', icon: 'arrow-expand-right'},
   ])
 
   const renderScene = BottomNavigation.SceneMap({
-    sequence: Sequence,
-    parallel: Parallel,
-    stagger: Stagger,
-    enterExit: EnterExit
+    drag: Drag,
+    leftSwipe: LeftSwipe,
+    panRes: PanRes,
   })
 
   return (
